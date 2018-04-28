@@ -1,0 +1,24 @@
+{
+  "name": "push-live-on-change",
+  "version": "1.0.0",
+  "description": "",
+  "main": "compilejsPushLiveCommitAndPush.js",
+  "scripts": {
+    "webpack-live": "",
+    "gulp": "gulp",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cotyembry/pushLiveOnChange.git"
+  },
+  "author": "John Coty Embry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cotyembry/pushLiveOnChange/issues"
+  },
+  "homepage": "https://github.com/cotyembry/pushLiveOnChange#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
