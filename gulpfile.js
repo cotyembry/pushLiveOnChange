@@ -20,7 +20,7 @@ fs = require('fs');
 
 var customWebpackFileName = 'my.custom.webpack.config';
 var webpackConfigPath = '../web';
-var bundleFilePath = 'distribute/bundle.js';
+var bundleFilePath = 'dist/bundle.js';
 var indexFilePath = 'index.html';
 
 function onFileChange() {
