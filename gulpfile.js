@@ -28,6 +28,9 @@ function onFileChange() {
         if (err) {
             return console.log(err);
         }
+
+        console.log('one?');
+
         exec(`cd ${webpackConfigPath} && npm run webpack`, (err, stdout, stderr) => {                           //once the build is done, copy over the distributable files then its time to run the surge command to push the project live
             exec(`mkdir ./surgeDeployment`, (err, stdout, stderr) => {                                          //make sure to make the directory so I dont get an error on the next line
                 exec(`copy ${bundleFilePath} ./surgeDeployment/${bundleFilePath}`, (err, stdout, stderr) => {   //once the build is done its time to run the surge command to copy the bundle.js file over that was just built
