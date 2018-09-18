@@ -34,21 +34,21 @@ function onFileChange() {
         exec(`cd ${webpackConfigPath} && npm run webpack`, (err, stdout, stderr) => {                           //once the build is done, copy over the distributable files then its time to run the surge command to push the project live
             console.log('two...', stdout);
 
-            exec(`mkdir ./surgeDeployment`, (err, stdout, stderr) => {                                          //make sure to make the directory so I dont get an error on the next line
+            exec(`cd ${webpackConfigPath} && mkdir ./surgeDeployment`, (err, stdout, stderr) => {                                          //make sure to make the directory so I dont get an error on the next line
                 console.log('three', stdout);
 
-                console.log(execSync('dir').toString())
+                console.log(execSync(`cd ${webpackConfigPath} && dir`).toString())
 
-                exec(`copy ${bundleFilePath} ./surgeDeployment/${bundleFilePath}`, (err, stdout, stderr) => {   //once the build is done its time to run the surge command to copy the bundle.js file over that was just built
+                exec(`cd ${webpackConfigPath} && copy ${bundleFilePath} ./surgeDeployment/${bundleFilePath}`, (err, stdout, stderr) => {   //once the build is done its time to run the surge command to copy the bundle.js file over that was just built
                     console.log('four', stdout);
                     
-                    exec(`copy ${indexFilePath} ./surgeDeployment/${indexFilePath}`, (err, stdout, stderr) => { //once the build is done its time to run the surge command to copy the index.html file over that could of possibly been changed
+                    exec(`cd ${webpackConfigPath} && copy ${indexFilePath} ./surgeDeployment/${indexFilePath}`, (err, stdout, stderr) => { //once the build is done its time to run the surge command to copy the index.html file over that could of possibly been changed
                         console.log('five', stdout);
                         
-                        exec(`git add -A && git commit -m "auto gulp build" && git push origin master`, (err, stdout, stderr) => {
+                        exec(`cd ${webpackConfigPath} && git add -A && git commit -m "auto gulp build" && git push origin master`, (err, stdout, stderr) => {
                             console.log('six', stdout);
                             
-                            exec(`cd ./surgeDeployment && surge`, (err, stdout, stderr) => {
+                            exec(`cd ${webpackConfigPath} && cd ./surgeDeployment && surge`, (err, stdout, stderr) => {
                                 console.log('seven', stdout);
                          
 
