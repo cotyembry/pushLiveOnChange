@@ -30,12 +30,12 @@ function onFileChange() {
         }
         exec(`cd ${webpackConfigPath} && npm run webpack`, (err, stdout, stderr) => {
             //once the build is done its time to run the surge command
-            exec(`mkdir .\\surgeDeployment`, (err, stdout, stderr) => {
+            exec(`cd ${webpackConfigPath} && mkdir .\\surgeDeployment`, (err, stdout, stderr) => {
                 //make sure to make the directory so I dont get an error on the next line
-                exec(`copy ${bundleFilePath} .\\surgeDeployment\\${bundleFilePath}`, (err, stdout, stderr) => {
-                    //once the build is done its time to run the surge command to copy the bundle.js file over that was just built
-                    exec(`copy ${indexFilePath} .\\surgeDeployment\\${indexFilePath}`, (err, stdout, stderr) => {
-                        //once the build is done its time to run the surge command to copy the bundle.js file over that was just built
+                exec(`cd ${webpackConfigPath} && copy ${bundleFilePath} .\\surgeDeployment\\${bundleFilePath}`, (err, stdout, stderr) => {
+                    //once the build is done copy the bundle.js file over that was just built
+                    exec(`cd ${webpackConfigPath} && copy ${indexFilePath} .\\surgeDeployment\\${indexFilePath}`, (err, stdout, stderr) => {
+                        //copy the index.js file as well
                         exec(`cd .\\surgeDeployment && surge`, (err, stdout, stderr) => {
                             //once the build is done its time to run the surge command to copy the bundle.js file over that was just built
 
