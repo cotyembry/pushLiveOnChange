@@ -35,7 +35,7 @@ function onFileChange() {
                         exec(`git add -A && git commit -m "auto gulp build" && git push origin master`, (err, stdout, stderr) => {
                             exec(`cd ./surgeDeployment && surge`, (err, stdout, stderr) => {
                          
-
+                                console.log('testing');
 
                             });
                         })
