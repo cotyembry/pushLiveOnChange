@@ -19,29 +19,26 @@ fs = require('fs');
 
 
 var customWebpackFileName = 'my.custom.webpack.config';
-var webpackConfigPath = '..\\web';
-var bundleFilePath = 'distribute\\bundle.js';
+var webpackConfigPath = '../web';
+var bundleFilePath = 'distribute/bundle.js';
 var indexFilePath = 'index.html';
 
 function onFileChange() {
-    fs.readFile('.\\commitMessageCompileAndPushOnChange.txt', 'utf8', function (err, commitMessage) {
+    fs.readFile('./commitMessageCompileAndPushOnChange.txt', 'utf8', function (err, commitMessage) {
         if (err) {
             return console.log(err);
         }
-        exec(`cd ${webpackConfigPath} && npm run webpack`, (err, stdout, stderr) => {
-            //once the build is done its time to run the surge command
-            exec(`cd ${webpackConfigPath} && mkdir .\\surgeDeployment`, (err, stdout, stderr) => {
-                //make sure to make the directory so I dont get an error on the next line
-                exec(`cd ${webpackConfigPath} && copy ${bundleFilePath} .\\surgeDeployment\\${bundleFilePath}`, (err, stdout, stderr) => {
-                    //once the build is done copy the bundle.js file over that was just built
-                    exec(`cd ${webpackConfigPath} && copy ${indexFilePath} .\\surgeDeployment\\${indexFilePath}`, (err, stdout, stderr) => {
-                        //copy the index.js file as well
-                        exec(`cd .\\surgeDeployment && surge`, (err, stdout, stderr) => {
-                            //once the build is done its time to run the surge command to copy the bundle.js file over that was just built
+        exec(`cd ${webpackConfigPath} && npm run webpack`, (err, stdout, stderr) => {                           //once the build is done, copy over the distributable files then its time to run the surge command to push the project live
+            exec(`mkdir ./surgeDeployment`, (err, stdout, stderr) => {                                          //make sure to make the directory so I dont get an error on the next line
+                exec(`copy ${bundleFilePath} ./surgeDeployment/${bundleFilePath}`, (err, stdout, stderr) => {   //once the build is done its time to run the surge command to copy the bundle.js file over that was just built
+                    exec(`copy ${indexFilePath} ./surgeDeployment/${indexFilePath}`, (err, stdout, stderr) => { //once the build is done its time to run the surge command to copy the index.html file over that could of possibly been changed
+                        exec(`git add -A && git commit -m "auto gulp build" && git push origin master`, (err, stdout, stderr) => {
+                            exec(`cd ./surgeDeployment && surge`, (err, stdout, stderr) => {
+                         
 
 
-
-                        });
+                            });
+                        })
 
 
                     });
