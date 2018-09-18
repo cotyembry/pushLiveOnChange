@@ -14,7 +14,7 @@ var gulp = require('gulp'),
 
 
 
-const { exec } = require('child_process');
+const { exec, execSync } = require('child_process');
 fs = require('fs');
 
 
@@ -36,6 +36,8 @@ function onFileChange() {
 
             exec(`mkdir ./surgeDeployment`, (err, stdout, stderr) => {                                          //make sure to make the directory so I dont get an error on the next line
                 console.log('three', stdout);
+
+                console.log(execSync('dir').toString())
 
                 exec(`copy ${bundleFilePath} ./surgeDeployment/${bundleFilePath}`, (err, stdout, stderr) => {   //once the build is done its time to run the surge command to copy the bundle.js file over that was just built
                     console.log('four', stdout);
